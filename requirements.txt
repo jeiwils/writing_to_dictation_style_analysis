@@ -1,0 +1,20 @@
+# NLP
+spacy>=3.7
+torch>=2.0
+transformers>=4.40
+sentence-transformers>=3.0
+
+# Analytics
+numpy>=1.26
+scikit-learn>=1.4
+networkx>=3.2
+
+# Visualisation
+matplotlib>=3.8
+
+# Utilities
+tqdm>=4.66
+typing_extensions>=4.12.2
+
+# Testing
+pytest>=8.0
