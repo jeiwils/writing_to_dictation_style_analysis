@@ -20,13 +20,26 @@ data/texts/
 # Data - intermediate analytics (large, reproducible)
 data/analytics/
 
-# Data - results: ignore everything except visualisation PNGs
-data/results/
-!data/results/**/dictation_emphasis/**/*.png
-
-# Also cover the block-size-suffixed folders (e.g. figures_L50/)
-data/figures_L*/
-!data/figures_L*/**/dictation_emphasis/**/*.png
+# Data - results: ignore everything except dictation_emphasis PNGs.
+# Git cannot negate files inside an ignored directory, so each intermediate
+# directory must be explicitly un-ignored before its contents are negated.
+data/results/*
+!data/results/figures_L5/
+data/results/figures_L5/*
+!data/results/figures_L5/dictation_emphasis/
+data/results/figures_L5/dictation_emphasis/*
+!data/results/figures_L5/dictation_emphasis/part_1_physical_cognitive/
+!data/results/figures_L5/dictation_emphasis/part_2_visual_impairment/
+data/results/figures_L5/dictation_emphasis/part_1_physical_cognitive/*
+!data/results/figures_L5/dictation_emphasis/part_1_physical_cognitive/*.png
+!data/results/figures_L5/dictation_emphasis/part_1_physical_cognitive/syntax_stretch_by_author/
+data/results/figures_L5/dictation_emphasis/part_2_visual_impairment/*
+!data/results/figures_L5/dictation_emphasis/part_2_visual_impairment/*.png
+!data/results/figures_L5/dictation_emphasis/part_2_visual_impairment/syntax_stretch_by_author/
+data/results/figures_L5/dictation_emphasis/part_1_physical_cognitive/syntax_stretch_by_author/*
+!data/results/figures_L5/dictation_emphasis/part_1_physical_cognitive/syntax_stretch_by_author/*.png
+data/results/figures_L5/dictation_emphasis/part_2_visual_impairment/syntax_stretch_by_author/*
+!data/results/figures_L5/dictation_emphasis/part_2_visual_impairment/syntax_stretch_by_author/*.png
 
 # IDE / OS
 .vscode/
