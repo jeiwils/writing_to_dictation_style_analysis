@@ -39,10 +39,10 @@ Mean dependency distance (the distance between a dependent word and its head) ac
 * **Visually Impaired Authors:** Showed unified, downward trends. Without a visual anchor, these authors avoided syntactic collapse by keeping dependent words physically closer to their heads and flattening their overall clause trees.
 
 **Cohort 1: Sighted / Physical Limitations**
-![Mean Dependency Distance — Sighted Authors](data/results/figures_L5/dictation_emphasis/part_1_physical_cognitive/dictation_mean_dependency_distance_slopegraph.png)
+![Mean Dependency Distance — Sighted Authors](data/results/figures_L5/dictation_emphasis/part_1_physical_cognitive/dictation_clause_tree_density_across_6_texts.png)
 
 **Cohort 2: Visually Impaired**
-![Mean Dependency Distance — Visually Impaired Authors](data/results/figures_L5/dictation_emphasis/part_2_visual_impairment/dictation_mean_dependency_distance_slopegraph.png)
+![Mean Dependency Distance — Visually Impaired Authors](data/results/figures_L5/dictation_emphasis/part_2_visual_impairment/dictation_clause_tree_density_across_6_texts.png)
 
 ### 3. Sentence Length and Clause Complexity
 Across the entire sample, the data indicates a general shift toward shorter, less complex sentences between the early and late phases. Scatter plots mapping sentence length against syntactic complexity illustrate how specific methodological limitations influenced output:
