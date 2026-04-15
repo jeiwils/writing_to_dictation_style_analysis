@@ -8,8 +8,7 @@ This module builds a compact figure suite around syntax and pacing:
 5) Mean dependency distance slopegraph.
 6) Lexical-density bubble charts on their own axis.
 
-It generates grouped dictation plots for each cohort and author without relying on
-any topic-modelling visualisations.
+It generates grouped dictation plots for each cohort and author.
 """
 
 from __future__ import annotations
@@ -1618,7 +1617,6 @@ def _smoothed_density(
     return centers, smooth
 
 
-# Topic-modelling visualisations were moved out of this dictation-only module.
 # `src/e1_text_dictation_visualisations.py` now focuses on syntax, rhythm, and lexical form.
 
 

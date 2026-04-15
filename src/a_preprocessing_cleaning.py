@@ -238,7 +238,7 @@ class TextPreprocessor:
         return [item["text"] for item in self.segment_sentences_with_offsets(text)]
 
     def normalize_text(self, text: str) -> str:
-        """Normalize text for embedding/topic workflows (lowercase lemmas, no punctuation)."""
+        """Normalize text to lowercase lemmas with no punctuation."""
         # Replace dash-like separators before ASCII folding to prevent word glue.
         text = re.sub(r"[\u2010\u2011\u2012\u2013\u2014\u2015]", " ", text)
         # ASCII-fold to keep downstream normalization stable (e.g., "æ" -> "ae").

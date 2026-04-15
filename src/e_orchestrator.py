@@ -361,7 +361,7 @@ def run_dictation_pipeline(
     output_root: Optional[Path] = None,
     stage_switches: Optional[Dict[str, bool]] = None,
 ):
-    """Run the full writing-to-dictation pipeline without topic/dashboard stages."""
+    """Run the full writing-to-dictation pipeline without dashboard stages."""
     switches = _merge_switches(DICTATION_STAGE_SWITCHES, stage_switches)
 
     if switches.get("preprocessing"):

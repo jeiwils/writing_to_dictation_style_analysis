@@ -3,8 +3,7 @@
 Defaults defined here are the single source of truth for runtime arguments and docs.
 """
 
-from dataclasses import dataclass
-from typing import Dict, Optional, Sequence, Tuple
+from typing import Sequence, Tuple
 
 DEFAULT_USE_EXISTING = True
 DEFAULT_RNG_SEED: int = 42
@@ -16,7 +15,6 @@ LOOP_BLOCK_SIZES = (3, 5, 7)
 
 MODEL_CONFIGS = {
     "causal_lm": "gpt2",
-    "sentence_embedding": "all-MiniLM-L6-v2",
 }
 
 # Default spaCy pipeline configuration
@@ -27,28 +25,6 @@ DEFAULT_SPACY_MAX_LENGTH: int = 5_000_000
 DEFAULT_WINDOW_SIZE: int = 3
 # Default stride (in sentences) for sliding window metrics
 DEFAULT_METRIC_WINDOW_STRIDE: int = 1
-# Topic model windows use base_window_size * multiple
-DEFAULT_TOPIC_WINDOW_MULTIPLE: int = 5
-# Topic window stride uses base_window_size * stride_multiple
-DEFAULT_TOPIC_WINDOW_STRIDE_MULTIPLE: int = 2
-# Shared HDBSCAN defaults for corpus-wide novel topic modelling.
-DEFAULT_TOPIC_MIN_CLUSTER_SIZE: Optional[int] = 12
-DEFAULT_TOPIC_MIN_SAMPLES: Optional[int] = 3
-# Default soft topic-score filtering for topic modelling + dashboard
-DEFAULT_SOFT_SCORE_THRESHOLD: float = 0.08
-DEFAULT_SOFT_TOP_K: int = 2
-# Short-text fallback (low window count) to avoid empty topic scores.
-DEFAULT_SHORT_TEXT_WINDOW_COUNT: int = 10
-DEFAULT_SHORT_TEXT_SOFT_SCORE_THRESHOLD: float = 0.25
-DEFAULT_SHORT_TEXT_SOFT_TOP_K: int = 3
-DEFAULT_SHORT_TEXT_MIN_CLUSTER_SIZE: int = 2
-DEFAULT_SHORT_TEXT_MIN_SAMPLES: int = 1
-DEFAULT_SHORT_TEXT_WINDOW_MULTIPLE: int = 4
-DEFAULT_USE_PCA: bool = False
-DEFAULT_PCA_COMPONENTS: int = 50
-DEFAULT_TOPIC_KEYWORD_TOP_N: int = 8
-DEFAULT_TOPIC_KEYWORD_NGRAM_RANGE: Tuple[int, int] = (1, 3)
-
 DEFAULT_MATTR_WINDOW_SIZE: int = 50
 DEFAULT_CONCEPT_TOP_N: int = 100
 

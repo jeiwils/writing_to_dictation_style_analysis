@@ -7,8 +7,6 @@ import json
 import numpy as np
 import spacy
 from statistics import mean
-from sentence_transformers import SentenceTransformer
-from sklearn.cluster import HDBSCAN
 
 from .x_configs import (
     DEFAULT_METRIC_WINDOW_STRIDE,
@@ -75,14 +73,12 @@ def analytics_path(
 ) -> Path:
     """
     Unified helper for analytics outputs under data/analytics.
-    kind: "corpus", "window", "topic", or "embeddings".
+    kind: "corpus" or "window".
     """
     base = Path("data") / "analytics"
     folder_map = {
         "corpus": base / "corpus_analytics",
         "window": base / "window_metrics",
-        "topic": base / "topic_modelling",
-        "embeddings": base / "embeddings",
     }
     if kind not in folder_map:
         raise ValueError(f"kind must be one of {list(folder_map.keys())}")
@@ -193,22 +189,6 @@ def dashboard_report_candidates(base_dir: Path, text_name: str, suffix: str) -> 
 def dashboard_report_path(base_dir: Path, text_name: str, suffix: str) -> Path:
     """Return the standardized dashboard report path for a text."""
     return dashboard_report_candidates(base_dir, text_name, suffix)[0]
-
-
-def find_topic_file(window_metrics_path: Path) -> Optional[Path]:
-    """Return the topic JSON for a window metrics file, preferring clustered topics."""
-    text_dir = window_metrics_path.parent
-    author_dir = window_metrics_path.parent.parent
-    genre_dir = window_metrics_path.parent.parent.parent
-    topic_root = analytics_path("topic") / genre_dir.name / author_dir.name / text_dir.name
-    candidates = [
-        topic_root / f"{text_dir.name}_clustered_topics.json",
-        topic_root / f"{text_dir.name}_topics.json",
-    ]
-    for candidate in candidates:
-        if candidate.exists():
-            return candidate
-    return None
 
 
 def find_window_metrics_files() -> List[Path]:
@@ -374,53 +354,4 @@ def load_json(path):
 
 
 
-def encode_texts(
-    encoder: SentenceTransformer,
-    texts: Sequence[str],
-    normalize: bool = True,
-) -> np.ndarray:
-    """Encode texts into embeddings using a shared encoder."""
-    if not texts:
-        dim = encoder.get_sentence_embedding_dimension()
-        return np.empty((0, dim))
-    embeddings = encoder.encode(list(texts))
-    if normalize:
-        return l2_normalize_embeddings(embeddings)
-    return embeddings
 
-
-def l2_normalize_embeddings(embeddings: np.ndarray) -> np.ndarray:
-    """L2-normalize embeddings row-wise, keeping zero vectors unchanged."""
-    if embeddings.size == 0:
-        return embeddings
-    norms = np.linalg.norm(embeddings, axis=1, keepdims=True)
-    norms[norms == 0] = 1.0
-    return embeddings / norms
-
-
-def hdbscan_cluster_labels(
-    embeddings: np.ndarray,
-    min_cluster_size: int = 5,
-    min_samples: Optional[int] = None,
-) -> np.ndarray:
-    """Cluster embeddings with HDBSCAN and return labels."""
-    if embeddings is None or len(embeddings) == 0:
-        return np.array([], dtype=int)
-    if len(embeddings) < min_cluster_size:
-        return np.full(len(embeddings), -1, dtype=int)
-    clusterer = HDBSCAN(
-        min_cluster_size=min_cluster_size,
-        min_samples=min_samples,
-        copy=False,  # keep embeddings in-place to silence sklearn future warning
-    )
-    return clusterer.fit_predict(embeddings)
-
-
-def labels_to_clusters(labels: Sequence[int]) -> Dict[int, List[int]]:
-    """Convert cluster labels to index lists, skipping noise (-1)."""
-    clusters: Dict[int, List[int]] = {}
-    for idx, label in enumerate(labels):
-        if label == -1:
-            continue
-        clusters.setdefault(label, []).append(idx)
-    return clusters
